@@ -1,7 +1,7 @@
 Mods for use with Sonic Nexus Decomp
 
 
-#EggBanana's Movement Plus (WIP)
+# EggBanana's Movement Plus (WIP)
 
 + Boost ability (press 'C')
 + Mid-air re-curl
