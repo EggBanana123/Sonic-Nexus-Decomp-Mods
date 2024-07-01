@@ -16,5 +16,5 @@ Mods for use with Sonic Nexus Decomp
 
 ## Extra features:
 + Lives start at 3, not 0, in level select (WIP)
-+ Getting 100 rings get you a life, not 99 (WIP)
++ Getting 100 rings gets you a life, not 99 (WIP)
 + You continue the grapping animation when jumping off parachutes, like in Wing Fortress (WIP)
