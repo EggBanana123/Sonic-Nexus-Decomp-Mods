@@ -1,0 +1,104 @@
+//----------Sonic Nexus Hell-i-bomber Bullet----------//
+//----Scripted by Christian Whitehead "The Taxman"----//
+
+#alias Object.Value0 : Object.XVelocity
+#alias Object.Value1 : Object.YVelocity
+
+#alias 31 : TYPE_HBULLET
+
+#alias 20 : TYPE_INVINCIBLE
+
+//----Player Movement States----//
+#alias 8 : GETTINGHURT
+#alias Object.Value4 : Player.Invincibility
+
+sub ObjectMain
+
+	Object.XPos+=Object.XVelocity
+	Object.YPos+=Object.YVelocity
+
+	if Object.OutOfBounds==true
+		Object.Type=0
+	end if
+
+end sub
+
+sub ObjectPlayerInteraction
+
+	PlayerObjectCollision(C_TOUCH,-4,-4,4,4)
+	if CheckResult==1
+
+		ArrayPos0=Player.EntityNo
+		ArrayPos0+=2
+		if Object[ArrayPos0].Type!=TYPE_INVINCIBLE
+			ArrayPos0=Player.EntityNo
+			    if Player[ArrayPos0].Invincibility==0
+                    ArrayPos0=Player.EntityNo
+	                ArrayPos0+=2
+                    if Object[ArrayPos0].PropertyValue>0
+                    //EggBanana - Script for bouncing off shields//
+                    TempValue0=Object.XPos
+		            TempValue0-=Player.XPos
+                    TempValue0/=TempValue0
+                    Object.XVelocity*=TempValue0
+
+                    TempValue0=Object.YPos
+		            TempValue0-=Player.YPos
+                    TempValue0/=TempValue0
+                    Object.YVelocity*=TempValue0
+                    //EggBanana - Script for bouncing off shields//
+                    else
+                        ArrayPos0=Player.EntityNo
+	                    if Object[ArrayPos0].PropertyValue>0
+				            Player.State=GETTINGHURT
+				            if Player.XPos>Object.XPos
+					            Player.Speed=131072
+				            else
+					            Player.Speed=-131072
+				            end if
+                        end if
+                    end if
+                else
+                    //EggBanana - Script for bouncing off shields//
+                    TempValue0=Object.XPos
+		            TempValue0-=Player.XPos
+                    TempValue0*=18
+                    Object.XVelocity=TempValue0
+
+                    TempValue0= Object.YPos
+		            TempValue0-=Player.YPos
+                    TempValue0*=18
+                    Object.YVelocity=TempValue0
+                    //EggBanana - Script for bouncing off shields//
+		        end if
+            end if
+        end if
+	end if
+
+end sub
+
+sub ObjectDraw
+
+	TempValue0=Object.Frame
+	TempValue0>>=2
+	DrawSprite(TempValue0)
+	Object.Frame++
+
+	if Object.Frame>7
+		Object.Frame=0
+	end if
+end sub
+
+sub ObjectStartup
+	LoadSpriteSheet("SSZ/Enemies.gif")
+
+	//Bullet Frames
+	SpriteFrame(-4,-4,8,8,85,41)
+	SpriteFrame(-4,-4,8,8,85,50)
+
+end sub
+
+sub RSDK
+	LoadSpriteSheet("SSZ/Enemies.gif")
+	SetEditorIcon(Icon0,SingleIcon,-4,-4,8,8,85,41)
+end sub
